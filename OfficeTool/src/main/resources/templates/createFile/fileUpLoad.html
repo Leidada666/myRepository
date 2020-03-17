@@ -2,9 +2,49 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>上传文件</title>
+<!-- Bootstrap -->
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-上传文件
+	<form th:action="@{/fileToFile/fileUpload}" enctype="multipart/form-data" method="post">
+		<table class="table table-hover" style="align: center;">
+			<tr>
+				<td>
+					<div class="form-group">
+		    			<label for="exampleInputFile">选择模板文件</label>
+		    			<input type="file" name="template"><br>
+		    			<p class="help-block" th:text="单选"></p>
+		 			</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="form-group">
+		    			<label for="exampleInputFile">选择需要生成的文件</label>
+		    			<input type="file" name="files" multiple="multiple"><br>
+		    			<p class="help-block" th:text="可多选"></p>
+		 			</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" class="btn btn-default" value="确定选择">
+					<input type="reset" class="btn btn-default" value="重新选择">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="help-block">使用说明：</p>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
 </body>
 </html>

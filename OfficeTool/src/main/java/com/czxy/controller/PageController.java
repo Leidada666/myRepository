@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
 	@RequestMapping("/{folder}/{page}")
 	public String page(@PathVariable String folder,@PathVariable String page) {
-		System.out.println(folder);
-		System.out.println(page);
 		return "/"+folder+"/"+page;
 	}
 }

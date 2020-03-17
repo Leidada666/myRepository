@@ -5,6 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-下载文件
+<span th:text="${session.uuid}"></span>
+<a th:href="@{/fileToFile/fileDownload(uuid=${session.uuid})}" th:text="下载文件"></a><br>
+<a th:href="@{/if/createFile/fileUpLoad}">重新生成文件</a>
 </body>
 </html>

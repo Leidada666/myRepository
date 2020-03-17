@@ -19,11 +19,30 @@
 </head>
 <body>
 	<div id="container" style="width: 100%;height: 636px">
-		<div id="header" style="background-color: #FFA500;height: 8%;width: 100%;">
-			<h1 style="margin-bottom: 0;">OfficeTool</h1>
-		</div>
+		<nav id="header" class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				 <div class="navbar-header">
+        			<a class="navbar-brand" href="#">OfficeTool</a>
+   				 </div>
+   				 
+   				<div>
+					<!--向右对齐-->
+        			<ul class="nav navbar-nav navbar-right">
+           		 		<li class="dropdown">
+       		 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" th:text="${session.user.username}">
+                   				<b class="caret"></b>
+               				</a>
+		              	  	<ul class="dropdown-menu">
+		                    	<li><a href="#">个人中心</a></li>
+		                    	<li><a href="#">退出</a></li>
+		               	 	</ul>
+           				</li>
+        			</ul>
+				</div>
+			</div>
+		</nav>
 
-		<div id="menu" 
+		<div id="menu"
 			style="background-color: #FFD700; height: 84%; width: 20%; float: left;text-align: center;">
 			<ul th:each="m : ${session.menu}" class="list-unstyled">
 				<li style="text-align: center;">
@@ -34,7 +53,7 @@
 
 		<div id="content"
 			style="background-color: #EEEEEE; height: 84%; width: 80%; float: left;">
-			<iframe id="if" th:src="@{/if/createFile/fileUpLoad}" style="height: 100%;width: 100%;background: blue;" scrolling="yes"></iframe>
+			<iframe id="if" th:src="@{/if/createFile/fileUpLoad}" style="height: 100%;width: 100%;" scrolling="yes"></iframe>
 		</div>
 
 		<div id="footer"
