@@ -2,9 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>选择查看的科目</title>
+<!-- Bootstrap -->
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-标题
+<form th:action="@{/fileToPie/fileDataByTitle}" method="post">
+	<table class="table table-hover">
+		<tr>
+			<td th:each="t : ${session.title}" >
+				<input th:if="${t eq '姓名' or (t eq '性别') or (t eq '学号')}" type="checkbox" name="titles" checked="checked" onclick="return false;" th:value="${t}" th:text="${t}">
+				<input th:if="${t ne '姓名' and (t ne '性别') and (t ne '学号')}" type="checkbox" name="titles" th:value="${t}" th:text="${t}">
+			</td>
+			<td>
+				<input class="btn btn-default" type="submit" value="确定">
+			</td>
+		</tr>
+		<tr>
+			<p>
+				说明：选择想要进行图表统计的科目！
+			</p>
+		</tr>
+	</table>
+</form>
 </body>
 </html>

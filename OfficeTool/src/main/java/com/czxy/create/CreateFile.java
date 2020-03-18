@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.czxy.check.FileHeadCheck;
 import com.czxy.check.FileTypeCheck;
-import com.czxy.exception.FileToFileException;
+import com.czxy.exception.FileOperateException;
 import com.czxy.filepath.FilepathEnum;
 
 public class CreateFile {
@@ -30,7 +30,7 @@ public class CreateFile {
 	/**
 	 * 开始生成文件，做验证文件和生成文件
 	 */
-	public String startCreateFile(MultipartFile template, MultipartFile[] files, String username) throws FileToFileException {
+	public String startCreateFile(MultipartFile template, MultipartFile[] files, String username) throws FileOperateException {
 		
 		fileTypeCheck = new FileTypeCheck();
 		fileHeadCheck = new FileHeadCheck();
@@ -50,7 +50,7 @@ public class CreateFile {
 	/**
 	 * 生成文件，同时返回文件名
 	 */
-	private String createFile(List<List<String>> heads ,MultipartFile template, MultipartFile[] files, String username) throws FileToFileException {
+	private String createFile(List<List<String>> heads ,MultipartFile template, MultipartFile[] files, String username) throws FileOperateException {
 		String uuid = UUID.randomUUID().toString();
 		String newFilepath = filepath+username+"/"+ uuid +".xlsx";
 		
@@ -58,7 +58,7 @@ public class CreateFile {
 			FileUtils.copyInputStreamToFile(template.getInputStream(), new File(newFilepath));
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new FileToFileException("保存模板文件失败");
+			throw new FileOperateException("保存模板文件失败");
 		}
 		
 		//合成文件到模板文件
@@ -78,7 +78,7 @@ public class CreateFile {
 	/**
 	 * 合成文件
 	 */
-	private void mergeFiles(int[] position, MultipartFile file, String newFilepath) throws FileToFileException {
+	private void mergeFiles(int[] position, MultipartFile file, String newFilepath) throws FileOperateException {
 		//读取保存本地的文件
 		XSSFWorkbook xssfWorkbook = null;
 		XSSFSheet sheetAt = null;
@@ -131,7 +131,7 @@ public class CreateFile {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new FileToFileException("合并文件失败");
+			throw new FileOperateException("合并文件失败");
 		}finally {
 			this.close(filexssfWorkbook,xssfWorkbook, in, fos);
 		}

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.czxy.create.CreateFile;
-import com.czxy.exception.FileToFileException;
+import com.czxy.exception.FileOperateException;
 import com.czxy.filepath.FilepathEnum;
 import com.czxy.pojo.User;
 
@@ -26,7 +26,7 @@ public class FileToFileController {
 
 	
 	@RequestMapping("/fileUpload")
-	public String fileUpload(HttpServletRequest req, MultipartFile template, @RequestParam("files")MultipartFile[] files) throws FileToFileException {
+	public String fileUpload(HttpServletRequest req, MultipartFile template, @RequestParam("files")MultipartFile[] files) throws FileOperateException {
 		User user = (User) req.getSession().getAttribute("user");
 		String username = user.getUsername();
 		

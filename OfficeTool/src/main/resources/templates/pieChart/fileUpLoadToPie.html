@@ -2,9 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>选择文件生成图表</title>
+<!-- Bootstrap -->
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-上传文件进行统计
+<table class="table table-hover">
+		<tr class="bg-info">
+			<td>
+				<form th:action="@{/fileToPie/pieTitle}" enctype="multipart/form-data" method="post">
+					<div class="form-group">
+		    		<label for="exampleInputFile">File input</label>
+		    		<input type="file" name="files" multiple="multiple">
+		    		<p class="help-block">选择文件源,大小限制为1M</p>
+		    		<p class="help-block">要求：文件具有统一格式，顺序也得一致</p>
+		 			</div>
+					<input type="submit" class="btn btn-default" value="确定选择">
+					<input type="reset" class="btn btn-default" value="重新选择">
+				</form>
+			</td>
+		</tr>
+</table>
 </body>
 </html>

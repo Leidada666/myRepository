@@ -3,7 +3,7 @@ package com.czxy.exception;
 /**
  * 文件处理过程中发生的错误
  */
-public class FileToFileException extends Exception{
+public class FileOperateException extends Exception{
 	/**
 	 * 
 	 */
@@ -11,12 +11,12 @@ public class FileToFileException extends Exception{
 	
 	private String msg;
 
-	public FileToFileException(String msg) {
+	public FileOperateException(String msg) {
 		super();
 		this.msg = msg;
 	}
 
-	public FileToFileException() {
+	public FileOperateException() {
 		super();
 	}
 
