@@ -25,9 +25,15 @@ public class FileTypeCheck {
 	/**
 	 * 获取文件类型
 	 */
-	private String getType(MultipartFile file) {
-		String filename = file.getOriginalFilename();
-		String suffix = filename.substring(filename.lastIndexOf("."));
+	private String getType(MultipartFile file) throws FileOperateException {
+		String suffix = null;
+		try {
+			String filename = file.getOriginalFilename();
+			suffix = filename.substring(filename.lastIndexOf("."));
+		}catch(StringIndexOutOfBoundsException sioobe) {
+			throw new FileOperateException("请选择文件");
+		}
+		
 		return suffix;
 	}
 }

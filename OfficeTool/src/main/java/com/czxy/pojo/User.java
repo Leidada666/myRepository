@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 用户表
@@ -26,7 +30,16 @@ public class User implements Serializable{
 	@Column(name="username")
 	private String username;
 	
-	@Column(name="password")
+	@Column(name="telephone",length=40)
+	@NotBlank(message="手机号不能为空")
+	@Length(max=11, min=11)
+	@Size(max=40)
+	private String telephone;
+	
+	@Column(name="password",length=40)
+	@NotBlank(message="密码不能为空")
+	@Length(max=11, min=8)
+	@Size(max=40)
 	private String password;
 
 	//建立用户与角色的关联关系，一个角色对应多个用户
@@ -57,6 +70,14 @@ public class User implements Serializable{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
 	public String getPassword() {
 		return password;
@@ -68,6 +89,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", telephone=" + telephone + ", password=" + password
+				+ "]";
 	}
 }

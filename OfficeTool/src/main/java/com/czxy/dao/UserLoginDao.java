@@ -9,6 +9,8 @@ import com.czxy.pojo.User;
  * 用户登录
  */
 public interface UserLoginDao extends Repository<User, Integer> {
-	
-	User findByUsernameAndPassword(String username, String password);
+	//登录
+	User findByTelephoneAndPassword(String telephone, String password);
+	//注册检验
+	User findByTelephone(String telephone);
 }

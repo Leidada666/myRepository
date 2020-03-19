@@ -14,8 +14,8 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	@Cacheable(value="user")
-	public User login(String username, String password) {
-		return this.userLoginDao.findByUsernameAndPassword(username, password);
+	public User login(String telephone, String password) {
+		return this.userLoginDao.findByTelephoneAndPassword(telephone, password);
 	}
 
 }

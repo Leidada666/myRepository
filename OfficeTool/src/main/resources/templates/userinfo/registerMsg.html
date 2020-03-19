@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:switch="${session.registerMsg}">
+		<a th:case="'0'" th:href="@{/registerValidate/registerPage}" th:text="注册失败，请重试！"></a>
+		<a th:case="'9'" th:href="@{/registerValidate/registerPage}" th:text="两个密码不相同，请重试！"></a>
+		<a th:case="'1'" th:href="@{/OfficeTool}" th:text="注册成功，请登录！"></a>
+		<a th:case="*" th:href="@{/registerValidate/registerPage}" th:text="${session.registerMsg}+':该手机号已被注册！'"></a>
+	</div>
+</body>
+</html>

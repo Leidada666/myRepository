@@ -59,7 +59,7 @@ public class UserRepositoryTest {
 	}
 	@Test
 	public void findUser() {
-		User user = userLoginDao.findByUsernameAndPassword("zs", "zs123");
+		User user = userLoginDao.findByTelephoneAndPassword("zs", "zs123");
 		System.out.println(user);
 		Role role = user.getRole();
 		System.out.println(role);

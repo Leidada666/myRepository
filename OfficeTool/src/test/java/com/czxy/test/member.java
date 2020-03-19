@@ -30,6 +30,7 @@ public class member {
 		User user = new User();
 		user.setUsername("zs");
 		user.setPassword("zs123");
+		user.setTelephone("12345678901");
 		
 		//第二步：创建一个角色
 		Role role = new Role();
@@ -59,7 +60,7 @@ public class member {
 	
 	@Test
 	public void findUser() {
-		User user = userLoginDao.findByUsernameAndPassword("zs", "zs123");
+		User user = userLoginDao.findByTelephoneAndPassword("12345678901", "zs123");
 		System.out.println(user);
 		Role role = user.getRole();
 		System.out.println(role);

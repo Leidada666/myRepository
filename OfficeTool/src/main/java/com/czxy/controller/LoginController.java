@@ -25,8 +25,8 @@ public class LoginController {
 	private LoginService loginServiceImpl;
 	
 	@RequestMapping("/login")
-	public String login(String username, String password,HttpServletRequest req) {
-		User user = this.loginServiceImpl.login(username, password);
+	public String login(String telephone, String password,HttpServletRequest req) {
+		User user = this.loginServiceImpl.login(telephone, password);
 		if(user != null) {
 			Role role = user.getRole();
 			Set<Menu> menu = role.getMenu();

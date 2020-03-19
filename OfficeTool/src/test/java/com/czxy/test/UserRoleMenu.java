@@ -59,7 +59,7 @@ public class UserRoleMenu {
 	
 	@Test
 	public void findUser() {
-		User user = userLoginDao.findByUsernameAndPassword("ls", "ls123");
+		User user = userLoginDao.findByTelephoneAndPassword("ls", "ls123");
 		System.out.println(user);
 		Role role = user.getRole();
 		System.out.println(role);

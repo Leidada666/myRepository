@@ -28,8 +28,9 @@ public class admin {
 	public void save() {
 		//第一步:创建一个用户
 		User user = new User();
-		user.setUsername("ls");
+		user.setUsername("ls_15536121636");
 		user.setPassword("ls123");
+		user.setTelephone("15536121636");
 		
 		//第二步：创建一个角色
 		Role role = new Role();
@@ -65,7 +66,7 @@ public class admin {
 	
 	@Test
 	public void findUser() {
-		User user = userLoginDao.findByUsernameAndPassword("ls", "ls123");
+		User user = userLoginDao.findByTelephoneAndPassword("15536121636", "ls123");
 		System.out.println(user);
 		Role role = user.getRole();
 		System.out.println(role);

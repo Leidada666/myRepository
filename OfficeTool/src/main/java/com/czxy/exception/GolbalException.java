@@ -3,6 +3,7 @@ package com.czxy.exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.exceptions.TemplateInputException;
 
 @ControllerAdvice
 public class GolbalException {
@@ -35,6 +36,17 @@ public class GolbalException {
 		mv.addObject("error", "请检查成绩单中是否存在非数字的数据！！！");
 		//指定视图
 		mv.setViewName("error/fileTypeError");
+		return mv;
+	}
+	
+	@ExceptionHandler(value = {org.thymeleaf.exceptions.TemplateInputException.class})
+	public ModelAndView numberFormatExceptionHandler(TemplateInputException e) {
+		ModelAndView mv = new ModelAndView();
+		//返回错误信息
+		System.out.println(e.getMessage());
+		mv.addObject("error", "请检查成绩单中是否存在非数字的数据！！！");
+		//指定视图
+		mv.setViewName("error/thymeleafError");
 		return mv;
 	}
 }
