@@ -18,4 +18,9 @@ public class LoginServiceImpl implements LoginService {
 		return this.userLoginDao.findByTelephoneAndPassword(telephone, password);
 	}
 
+	@Override
+	public User loginByCookie(String telephone) {
+		return this.userLoginDao.findByTelephone(telephone);
+	}
+
 }

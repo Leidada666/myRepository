@@ -31,15 +31,9 @@ public class User implements Serializable{
 	private String username;
 	
 	@Column(name="telephone",length=40)
-	@NotBlank(message="手机号不能为空")
-	@Length(max=11, min=11)
-	@Size(max=40)
 	private String telephone;
 	
 	@Column(name="password",length=40)
-	@NotBlank(message="密码不能为空")
-	@Length(max=11, min=8)
-	@Size(max=40)
 	private String password;
 
 	//建立用户与角色的关联关系，一个角色对应多个用户
