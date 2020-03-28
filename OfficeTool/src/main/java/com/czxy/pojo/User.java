@@ -36,17 +36,15 @@ public class User implements Serializable{
 	@Column(name="password",length=40)
 	private String password;
 
-	//建立用户与角色的关联关系，一个角色对应多个用户
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="role_id")
-	private Role role;
+	@Column(name="role_id")
+	private Integer role_id;
 	
-	public Role getRole() {
-		return role;
+	public Integer getRole_id() {
+		return role_id;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole_id(Integer role_id) {
+		this.role_id = role_id;
 	}
 
 	public Integer getId() {
@@ -84,6 +82,6 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", telephone=" + telephone + ", password=" + password
-				+ "]";
+				+ ", role_id=" + role_id + "]";
 	}
 }

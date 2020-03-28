@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>个人中心</title>
+<title>成员信息</title>
 <!-- Bootstrap -->
 <link
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
@@ -10,30 +10,72 @@
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function getData() {
+		//1 创建Ajax引擎对象
+			var ajax;
+			if(window.XMLHttpRequest){
+				//火狐
+				ajax = new XMLHttpRequest();
+			}else if (window.ActiveXObject) {
+				//IE6、7
+				ajax = new ActiveXObject("Msxml2.XMLHTTP");
+			}
+			
+		//2 复写onreadystatement函数
+			ajax.onreadystatechange=function(){
+				//4 判断Ajax状态码
+				if(ajax.readyState == 4){
+					//5 判断响应状态码
+					if(ajax.status == 200){
+						//获取响应内容
+						var result = ajax.responseText;
+						eval("var obj=" +result);
+						
+						//获取元素对象
+						var showdiv = document.getElementById("showUser");
+						
+						//修改元素内容
+						showdiv.innerHTML = "<tr><th>ID</th><th>用户名</th><th>手机号</th><th>密码</th></tr>";
+						
+						for(var i = 0; i < obj.length; i++){
+							var row = document.createElement('tr');
+							var idCell = document.createElement('td');
+							idCell.innerHTML = obj[i].id;
+							row.appendChild(idCell)
+							var nameCell = document.createElement('td');
+							nameCell.innerHTML = obj[i].username;
+							row.appendChild(nameCell);
+							var telCell = document.createElement('td');
+							telCell.innerHTML = obj[i].telephone;
+							row.appendChild(telCell);
+							var pasCell = document.createElement('td');
+							pasCell.innerHTML = obj[i].password;
+							row.appendChild(pasCell);
+							showdiv.appendChild(row);
+						}
+					}else if(ajax.status == 404){
+						var showdiv = document.getElementById("showUser");
+						showdiv.innerHTML = "请求资源不存在";
+					}else if(ajax.status == 500){
+						var showdiv = document.getElementById("showUser");
+						showdiv.innerHTML = "服务器繁忙";
+					}
+				}
+			}
+		
+		//3 发送请求
+		ajax.open("post", "/ShowUser/users");
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send(null)
+	}
+</script>
+
 </head>
 <body>
-	<form th:action="@{/Quit/quit}" method="post">
-		<table class="table table-hover" style="align: center;">
-			<tr>
-				<td>用户名</td>
-				<td>
-					<input type="text" name="username" th:field="${showUser.username}">
-				</td>
-			</tr>
-			<tr>
-				<td>密码</td>
-				<td>
-					<input type="text" name="password" th:field="${showUser.password}">
-				</td>
-			</tr>
-			<tr>
-				<td>手机号</td>
-				<td>
-					<input type="text" name="telephone" th:field="${showUser.telephone}">
-				</td>
-			</tr>
-		</table>
-		<input type="submit" value="修改">
-	</form>
+	<button onclick="getData()" >查询全部成员</button>
+	
+	<table id="showUser" class="table table-hover">
+	</table>
 </body>
 </html>

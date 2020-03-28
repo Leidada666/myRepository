@@ -31,11 +31,6 @@ public class Role implements Serializable {
 	@Column(name="role_name")
 	private String role_name;
 	
-	//建议角色和用户的关联关系，一个角色对应多个用户
-	@OneToMany(mappedBy="role",fetch=FetchType.EAGER)
-	private Set<User> user = new HashSet<>();
-	
-	
 	//建立角色和菜单的关联关系，多个角色对应多个菜单
 	@ManyToMany(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
 	@JoinTable(name="t_role_menu",joinColumns=@JoinColumn(name="role_id"),inverseJoinColumns=@JoinColumn(name="menu_id"))
@@ -63,14 +58,6 @@ public class Role implements Serializable {
 
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
-	}
-
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		this.user = user;
 	}
 
 	@Override

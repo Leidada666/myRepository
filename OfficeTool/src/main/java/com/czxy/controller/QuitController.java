@@ -14,13 +14,11 @@ public class QuitController {
 	public String quit(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().removeAttribute("user");
 		req.getSession().removeAttribute("menu");
-//		Cookie[] cookies = req.getCookies();
-//		for(Cookie c : cookies) {
-//			if("u_telephone".equals(c.getName())) {
-//				c.setMaxAge(0);
-//				resp.addCookie(c);
-//			}
-//		}
+		//退出登录，使cookie失效
+		Cookie ck = new Cookie("u_telephone", "111111");
+		ck.setPath("/OfficeTool");
+		ck.setMaxAge(0);
+		resp.addCookie(ck);
 		return "/index";
 	}
 }
