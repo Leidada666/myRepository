@@ -27,6 +27,7 @@ public class IsLoginInterceptor implements HandlerInterceptor{
 	//在进入控制器之前执行
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		//判断当前是否有用户登录
 		User user = (User) request.getSession().getAttribute("user");
 		System.out.println("拦截"+user);
 		if(user == null) {

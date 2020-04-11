@@ -2,11 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>文件下载</title>
 </head>
 <body>
 <span th:text="${session.uuid}"></span>
 <a th:href="@{/fileToFile/fileDownload(uuid=${session.uuid})}" th:text="下载文件"></a><br>
 <a th:href="@{/if/createFile/fileUpLoad}">重新生成文件</a>
+
+<hr/>
+<p>历史记录</p>
+<span th:each="u : ${session.uuids}">
+	<span th:text="${u}"></span>
+	<a th:href="@{/fileToFile/fileDownload(uuid=${u} )}" th:text="下载文件"></a><br>
+</span>
 </body>
 </html>

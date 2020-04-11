@@ -2,28 +2,36 @@ package com.czxy.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.czxy.create.CreateFile;
 import com.czxy.exception.FileOperateException;
 import com.czxy.filepath.FilepathEnum;
 import com.czxy.pojo.User;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/fileToFile")
 public class FileToFileController {
 	
 	private CreateFile createFile;
-
+	
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 	
 	@RequestMapping("/fileUpload")
 	public String fileUpload(HttpServletRequest req, MultipartFile template, @RequestParam("files")MultipartFile[] files) throws FileOperateException {
@@ -33,10 +41,36 @@ public class FileToFileController {
 		createFile = new CreateFile();
 		String uuid = createFile.startCreateFile(template, files, username);
 		System.out.println("uuid ： "+uuid+".xlsx");
-		
+		//当前所生成的文件
 		req.getSession().setAttribute("uuid", uuid+".xlsx");
 		
+		//更新redis缓存
+		List<String> finalList = redisMessage(username, uuid);
+		req.getSession().setAttribute("uuids", finalList);
 		return "createFile/fileDownLoad";
+	}
+
+	//更新redis缓存
+	private List<String> redisMessage(String username, String uuid) {
+		Boolean hasKey = this.redisTemplate.hasKey(username);
+		List<String> finalList  = new ArrayList<String>();
+		if(hasKey) {
+			//已经生成过文件
+			String object = (String) this.redisTemplate.opsForValue().get(username);
+			Gson gson = new Gson();
+			finalList = gson.fromJson(object, List.class);
+			finalList.add(uuid+".xlsx");
+			String json = gson.toJson(finalList);
+			this.redisTemplate.opsForValue().set(username, json);
+		}else {
+			//还未生成过文件
+			Gson gson = new Gson();
+			List<String> newList  = new ArrayList<String>();
+			newList.add(uuid+".xlsx");
+			String json = gson.toJson(newList);
+			this.redisTemplate.opsForValue().set(username, json);
+		}
+		return finalList;
 	}
 	
 	
