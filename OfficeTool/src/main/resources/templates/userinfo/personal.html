@@ -12,17 +12,12 @@
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table class="table table-hover" style="align: center;">
+<form th:action="@{/PersonalShow/updateUserInfo }" method="post">
+	<table class="table table-hover" style="align: center;">
 		<tr>
 			<td>用户名</td>
 			<td>
 				<input type="text" name="username" th:field="${showUser.username}">
-			</td>
-		</tr>
-		<tr>
-			<td>密码</td>
-			<td>
-				<input type="text" name="password" th:field="${showUser.password}">
 			</td>
 		</tr>
 		<tr>
@@ -32,6 +27,8 @@
 			</td>
 		</tr>
 	</table>
+	<input type="hidden" name="id" th:value="${showUser.id }">
 	<input type="submit" value="修改">
+</form>
 </body>
 </html>
