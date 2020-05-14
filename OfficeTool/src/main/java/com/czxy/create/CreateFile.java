@@ -66,10 +66,10 @@ public class CreateFile {
 		for(int i=1; i<heads.size(); i++) {
 			List<String> fileHead = heads.get(i);
 			int[] position = this.getPosition(templateHead, fileHead);
-			for(MultipartFile file : files) {
-				this.mergeFiles(position, file, newFilepath);
-				System.out.println(file.getOriginalFilename()+" ： 合并成功--CreateFile:71");
-			}
+//			for(MultipartFile file : files) {
+				this.mergeFiles(position, files[i-1], newFilepath);
+				System.out.println(files[i-1].getOriginalFilename()+" ： 合并成功--CreateFile:71");
+//			}
 		}
 		
 		return uuid;
