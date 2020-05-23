@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>历史记录</title>
+</head>
+<body>
+<p>历史记录</p>
+<span th:each="u : ${session.history}">
+	<span th:text="${u}"></span>
+	<a th:href="@{/fileToFile/fileDownload(uuid=${u} )}" th:text="下载文件"></a><br>
+</span>
+</body>
+</html>
