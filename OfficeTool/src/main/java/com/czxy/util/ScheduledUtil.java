@@ -22,7 +22,7 @@ public class ScheduledUtil {
 	
 	private Set<String> keys;
 	
-	@Scheduled(cron="0 0 24 * * ?")
+	@Scheduled(cron="59 59 23 * * ?")
 	public void scheduledMethod() {
 		System.out.println("触发器被执行");
 		keys = this.redisTemplate.keys("*");

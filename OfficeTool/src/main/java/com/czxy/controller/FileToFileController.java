@@ -73,6 +73,25 @@ public class FileToFileController {
 		return finalList;
 	}
 	
+	@RequestMapping("/history")
+	public String history(HttpServletRequest req, String uname) {
+		System.out.println("点击了浏览历史");
+		System.out.println("uname : "+ uname);
+		Boolean hasKey = this.redisTemplate.hasKey(uname);
+		List<String> historyList  = new ArrayList<String>();
+		if(hasKey) {
+			System.out.println("成功");
+			String object = (String) this.redisTemplate.opsForValue().get(uname);
+			Gson gson = new Gson();
+			historyList = gson.fromJson(object, List.class);
+		}else {
+			System.out.println("失败");
+			String nohistory = "暂无历史记录";
+			historyList.add(nohistory);
+		}
+		req.getSession().setAttribute("history", historyList);
+		return "createFile/historyDownload";
+	}
 	
 	@RequestMapping("/fileDownload")
 	public void fileUpload(HttpServletResponse res,HttpServletRequest req, String uuid) throws IOException {
