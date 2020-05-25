@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.data.general.DefaultPieDataset;
+
+import com.lowagie.text.Font;
 
 public class PieChartToHTML {
 	/**
@@ -25,6 +28,12 @@ public class PieChartToHTML {
 		List<Integer> result = result(finalList, index);
 		//图片的数据
 		DefaultPieDataset data = getData(result);
+		//设置图片字体
+		StandardChartTheme standardChartTheme = new StandardChartTheme("CN");
+			//设置标题字体
+			standardChartTheme.setExtraLargeFont(new java.awt.Font("隶书", Font.BOLD, 20));
+			//应用图例样式
+			ChartFactory.setChartTheme(standardChartTheme);
 		//生成图片
 		JFreeChart chart = ChartFactory.createPieChart3D(title, data, true, false, false);
 		//返回给页面
@@ -90,11 +99,18 @@ public class PieChartToHTML {
 	//图片数据
 	private DefaultPieDataset getData(List<Integer> result) {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("90-100", result.get(0));
-		dataset.setValue("80-89", result.get(1));
-		dataset.setValue("70-79", result.get(2));
-		dataset.setValue("60-69", result.get(3));
-		dataset.setValue("<60", result.get(4));
+		Integer index_0 = result.get(0);
+		Integer index_1 = result.get(1);
+		Integer index_2 = result.get(2);
+		Integer index_3 = result.get(3);
+		Integer index_4 = result.get(4);
+		
+		
+		dataset.setValue("90-100 : "+index_0, index_0);
+		dataset.setValue("80-89 : "+index_1, index_1);
+		dataset.setValue("70-79 : "+index_2, index_2);
+		dataset.setValue("60-69 : "+index_3, index_3);
+		dataset.setValue("<60 : "+index_4, index_4);
 		return dataset;
 	}
 }
